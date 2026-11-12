@@ -50,6 +50,21 @@ body {
     text-decoration: none;
 }
 
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.signup-button {
+    background: #e5f3ee;
+    color: #176b5b;
+}
+
+.signup-button:hover {
+    background: #d3ebe1;
+}
+
 /* Hero Section */
 .hero {
     min-height: 550px;
@@ -189,8 +204,14 @@ footer {
         flex-direction: column;
     }
 
+    .nav-actions {
+        gap: 6px;
+        margin-left: auto;
+    }
+
     .nav-button {
-        display: none;
+        padding: 9px 12px;
+        font-size: 13px;
     }
 }
 
@@ -213,6 +234,7 @@ footer {
     .navbar {
         position: relative;
         justify-content: space-between;
+        padding: 18px 5%;
     }
 
     .menu-toggle {
@@ -244,7 +266,12 @@ footer {
         font-size: 16px;
     }
 
+    .nav-actions {
+        margin-left: auto;
+    }
+
     .nav-button {
-        display: none;
+        padding: 8px 10px;
+        font-size: 12px;
     }
 }

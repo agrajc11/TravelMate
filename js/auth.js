@@ -42,6 +42,99 @@ function getUsers() {
     return users;
 }
 
+const supportedEmailDomains = [
+    "gmail.com",
+    "yahoo.com",
+    "outlook.com",
+    "hotmail.com",
+    "live.com",
+    "icloud.com",
+    "aol.com",
+    "proton.me",
+    "protonmail.com",
+    "zoho.com",
+    "yandex.com",
+    "rediffmail.com",
+    "gmx.com",
+    "mail.com"
+];
+
+function checkEmailDomain(email) {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!email) {
+        return { valid: false, message: "Use a supported email provider, such as Gmail, Outlook, Yahoo, or iCloud." };
+    }
+
+    if (!emailPattern.test(email)) {
+        return { valid: false, message: "Enter a valid email address." };
+    }
+
+    const domain = email.split("@")[1].toLowerCase();
+    if (!supportedEmailDomains.includes(domain)) {
+        return { valid: false, message: "Use a supported email domain, such as gmail.com, outlook.com, or yahoo.com." };
+    }
+
+    return { valid: true, message: "Email format and provider are supported." };
+}
+
+function getPasswordChecks(password) {
+    return {
+        length: password.length >= 8,
+        uppercase: /[A-Z]/.test(password),
+        lowercase: /[a-z]/.test(password),
+        number: /[0-9]/.test(password),
+        symbol: /[^A-Za-z0-9]/.test(password)
+    };
+}
+
+const registerEmail = document.getElementById("email");
+const emailStatus = document.getElementById("emailStatus");
+const registerPassword = document.getElementById("password");
+const confirmPasswordInput = document.getElementById("confirmPassword");
+const confirmPasswordStatus = document.getElementById("confirmPasswordStatus");
+
+if (registerEmail && emailStatus) {
+    registerEmail.addEventListener("input", function () {
+        const result = checkEmailDomain(registerEmail.value.trim().toLowerCase());
+        emailStatus.textContent = result.message;
+        emailStatus.className = "live-status " + (result.valid ? "valid" : "invalid");
+    });
+}
+
+function updatePasswordFeedback() {
+    if (!registerPassword) return;
+
+    const password = registerPassword.value;
+    const checks = getPasswordChecks(password);
+
+    document.querySelectorAll("[data-password-rule]").forEach(function (rule) {
+        const checkName = rule.dataset.passwordRule;
+        rule.dataset.state = !password ? "pending" : checks[checkName] ? "valid" : "invalid";
+    });
+
+    if (confirmPasswordInput && confirmPasswordStatus) {
+        if (!confirmPasswordInput.value) {
+            confirmPasswordStatus.textContent = "Re-enter your password to check that it matches.";
+            confirmPasswordStatus.className = "live-status";
+        } else if (confirmPasswordInput.value === password) {
+            confirmPasswordStatus.textContent = "Passwords match.";
+            confirmPasswordStatus.className = "live-status valid";
+        } else {
+            confirmPasswordStatus.textContent = "Passwords do not match.";
+            confirmPasswordStatus.className = "live-status invalid";
+        }
+    }
+}
+
+if (registerPassword) {
+    registerPassword.addEventListener("input", updatePasswordFeedback);
+}
+
+if (confirmPasswordInput) {
+    confirmPasswordInput.addEventListener("input", updatePasswordFeedback);
+}
+
 if (registerForm) {
     registerForm.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -56,14 +149,15 @@ if (registerForm) {
             return;
         }
 
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailPattern.test(email)) {
-            showAuthAlert("Please enter a valid email address.");
+        const emailCheck = checkEmailDomain(email);
+        if (!emailCheck.valid) {
+            showAuthAlert(emailCheck.message);
             return;
         }
 
-        if (password.length < 6) {
-            showAuthAlert("Password must be at least 6 characters long.");
+        const passwordChecks = getPasswordChecks(password);
+        if (!Object.values(passwordChecks).every(Boolean)) {
+            showAuthAlert("Password must meet all five requirements shown below the password field.");
             return;
         }
 
@@ -172,6 +266,7 @@ if (logoutButton) {
 }
 
 const authNavLink = document.getElementById("authNavLink");
+const signupNavLink = document.getElementById("signupNavLink");
 
 if (authNavLink) {
     try {
@@ -182,6 +277,10 @@ if (authNavLink) {
                 event.preventDefault();
                 endDemoSession();
             });
+
+            if (signupNavLink) {
+                signupNavLink.hidden = true;
+            }
         }
     } catch (error) {
         showAuthAlert("Could not read your login session. Check browser Local Storage and try again.");

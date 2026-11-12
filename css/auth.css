@@ -95,6 +95,73 @@ input:focus {
     box-shadow: 0 0 0 3px rgba(23, 107, 91, 0.08);
 }
 
+.live-status {
+    margin: -6px 0 2px;
+    color: var(--text-soft);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.live-status.valid {
+    color: var(--green-primary);
+}
+
+.live-status.invalid {
+    color: #b33a3a;
+}
+
+.password-analysis {
+    padding: 12px 14px;
+    background: #f5f8f6;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+.analysis-title {
+    margin: 0 0 8px;
+    color: var(--text-main);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.password-analysis ul {
+    display: grid;
+    gap: 5px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.password-analysis li {
+    color: var(--text-soft);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.password-analysis li::before {
+    content: "○";
+    display: inline-block;
+    width: 20px;
+    color: #89958f;
+}
+
+.password-analysis li[data-state="valid"] {
+    color: var(--green-primary);
+}
+
+.password-analysis li[data-state="valid"]::before {
+    content: "✓";
+    font-weight: bold;
+}
+
+.password-analysis li[data-state="invalid"] {
+    color: #b33a3a;
+}
+
+.password-analysis li[data-state="invalid"]::before {
+    content: "×";
+}
+
 .primary-btn {
     background: var(--green-primary);
     color: var(--white);
