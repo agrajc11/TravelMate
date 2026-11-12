@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Trips | TravelMate</title>
+    <link rel="stylesheet" href="css/trips.css">
+</head>
+<body>
+
+<div class="dashboard">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">TravelMate<span>.</span></div>
+
+        <nav class="sidebar-nav">
+            <p class="nav-heading">MENU</p>
+
+            <a href="index.html" class="nav-link">⌂ Dashboard</a>
+            <a href="destinations.html" class="nav-link">⌖ Destinations</a>
+            <a href="trips.html" class="nav-link active">✈ My Trips</a>
+            <a href="itinerary.html" class="nav-link">▤ Itinerary</a>
+
+            <p class="nav-heading">PERSONAL</p>
+
+            <a href="#" class="nav-link">₹ Budget Planner</a>
+            <a href="#" class="nav-link">♡ Favorites</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <p>Plan your next adventure!</p>
+            <span>TravelMate © 2026</span>
+        </div>
+    </aside>
+
+    <!-- Main area -->
+    <main class="main-content">
+
+        <header class="topbar">
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <div>
+                <p class="topbar-label">TRAVEL PLANNER</p>
+                <h2>My Trips</h2>
+            </div>
+            <button type="button" class="profile" id="logoutButton">Logout</button>
+        </header>
+
+        <section class="page-content">
+
+            <div class="welcome-section">
+                <div>
+                    <h1>Your Adventures</h1>
+                    <p>Organize your trips and make every journey memorable.</p>
+                </div>
+
+                <button class="primary-btn" id="openTripModal">
+                    + Add New Trip
+                </button>
+            </div>
+
+            <!-- Trip summary -->
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <span>Total Trips</span>
+                    <h2 id="totalTrips">0</h2>
+                </div>
+
+                <div class="summary-card">
+                    <span>Upcoming Trips</span>
+                    <h2 id="upcomingTrips">0</h2>
+                </div>
+
+                <div class="summary-card">
+                    <span>Completed Trips</span>
+                    <h2 id="completedTrips">0</h2>
+                </div>
+            </div>
+
+            <!-- Search -->
+            <div class="trip-toolbar">
+                <input
+                    type="search"
+                    id="tripSearch"
+                    placeholder="Search your trips..."
+                >
+
+                <select id="tripFilter">
+                    <option value="all">All Trips</option>
+                    <option value="upcoming">Upcoming</option>
+                    <option value="completed">Completed</option>
+                </select>
+            </div>
+
+            <!-- Cards appear here -->
+            <div class="trip-grid" id="tripList"></div>
+
+            <div class="empty-state" id="emptyState">
+                <div class="empty-icon">✈</div>
+                <h3>No trips found</h3>
+                <p>Start planning your next adventure!</p>
+                <button class="primary-btn" id="emptyAddButton">
+                    Create Your First Trip
+                </button>
+            </div>
+
+        </section>
+    </main>
+</div>
+
+<!-- Add/Edit Trip Popup -->
+<dialog id="tripModal" class="trip-modal">
+    <div class="modal-header">
+        <div>
+            <p class="topbar-label">TRIP MANAGEMENT</p>
+            <h2 id="modalTitle">Create New Trip</h2>
+        </div>
+        <button type="button" class="close-btn" id="closeTripModal">×</button>
+    </div>
+
+    <form id="tripForm">
+        <label for="tripName">Trip Name</label>
+        <input type="text" id="tripName" placeholder="e.g. Summer Vacation" required>
+
+        <label for="destination">Destination</label>
+        <input type="text" id="destination" placeholder="e.g. Manali" required>
+
+        <div class="form-row">
+            <div>
+                <label for="startDate">Start Date</label>
+                <input type="date" id="startDate" required>
+            </div>
+
+            <div>
+                <label for="endDate">End Date</label>
+                <input type="date" id="endDate" required>
+            </div>
+        </div>
+
+        <label for="travelers">Number of Travelers</label>
+        <input type="number" id="travelers" min="1" value="1" required>
+
+        <label for="budget">Estimated Budget (₹)</label>
+        <input type="number" id="budget" min="0" placeholder="e.g. 10000">
+
+        <label for="notes">Notes</label>
+        <textarea id="notes" rows="3" placeholder="Additional trip details..."></textarea>
+
+        <div class="modal-actions">
+            <button type="button" class="secondary-btn" id="cancelTrip">Cancel</button>
+            <button type="submit" class="primary-btn">Save Trip</button>
+        </div>
+    </form>
+</dialog>
+
+<dialog id="customAlertModal" class="custom-alert-modal">
+    <div class="custom-alert-content">
+        <p id="customAlertText">Message</p>
+        <button type="button" class="primary-btn" id="closeCustomAlert">OK</button>
+    </div>
+</dialog>
+
+<dialog id="confirmModal" class="confirm-modal">
+    <div class="modal-header">
+        <div>
+            <p class="topbar-label">CONFIRM ACTION</p>
+            <h2>Delete Trip</h2>
+        </div>
+        <button type="button" class="close-btn" id="closeConfirmModal">×</button>
+    </div>
+
+    <p id="confirmMessage">Are you sure you want to delete this trip?</p>
+
+    <div class="modal-actions">
+        <button type="button" class="secondary-btn" id="cancelConfirmDelete">Cancel</button>
+        <button type="button" class="primary-btn" id="confirmDeleteBtn">Delete</button>
+    </div>
+</dialog>
+
+<script src="js/main.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/trips.js"></script>
+</body>
+</html>

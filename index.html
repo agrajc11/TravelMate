@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelMate | Explore the World</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    
+    <header>
+        <nav class="navbar">
+            <h2 class="logo">TravelMate.</h2>
+
+            <button class="menu-toggle" id="menuToggle"
+                    aria-label="Toggle navigation"
+                    aria-expanded="false">
+                ☰
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="trips.html">My Trips</a></li>
+                <li><a href="itinerary.html">Itinerary</a></li>
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#about">About</a></li>
+            </ul>
+
+            <a href="login.html" class="nav-button" id="authNavLink">Login</a>
+        </nav>
+    </header>
+
+
+    <!-- Hero Section -->
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <p class="tagline">YOUR JOURNEY, YOUR WAY</p>
+
+                <h1>Explore More.<br>Worry Less.</h1>
+
+                <p class="hero-description">
+                    Plan your trips, organize your itinerary,
+                    manage your budget and make every journey memorable.
+                </p>
+
+                <a href="#features" class="primary-button">
+                    Start Planning
+                </a>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features" id="features">
+            <h2>Everything You Need for Your Journey</h2>
+
+            <div class="feature-container">
+                <div class="feature-card">
+                    <h3>Trip Planning</h3>
+                    <p>Create and manage all your travel plans in one place.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>Itinerary Organizer</h3>
+                    <p>Organize your activities, dates and destinations.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>Budget Planner</h3>
+                    <p>Track your travel expenses and manage your budget.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about" id="about">
+            <h2>About TravelMate</h2>
+            <p>
+                TravelMate is a travel planning platform designed
+                to make organizing trips simple and convenient.
+            </p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 TravelMate. All rights reserved.</p>
+    </footer>
+
+    <dialog id="customAlertModal" class="custom-alert-modal">
+        <div class="custom-alert-content">
+            <p id="customAlertText">Message</p>
+            <button type="button" class="primary-btn" id="closeCustomAlert">OK</button>
+        </div>
+    </dialog>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destinations | TravelMate</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/destinations.css">
+</head>
+<body>
+
+    
+    <header>
+        <nav class="navbar">
+            <h2 class="logo">TravelMate.</h2>
+
+            <button class="menu-toggle" id="menuToggle"
+                    aria-label="Toggle navigation"
+                    aria-expanded="false">
+                ☰
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="trips.html">My Trips</a></li>
+                <li><a href="itinerary.html">Itinerary</a></li>
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#about">About</a></li>
+            </ul>
+
+            <a href="login.html" class="nav-button" id="authNavLink">Login</a>
+        </nav>
+    </header>
+
+
+    <main>
+        <section class="destination-heading">
+            <p class="tagline">DISCOVER NEW PLACES</p>
+            <h1>Explore Destinations</h1>
+            <p>Find your next favourite travel destination.</p>
+        </section>
+
+        <!-- Search and Filter -->
+        <section class="destination-controls">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search destinations..."
+            >
+
+            <select id="categoryFilter">
+                <option value="all">All Categories</option>
+                <option value="mountains">Mountains</option>
+                <option value="beaches">Beaches</option>
+                <option value="cities">Cities</option>
+                <option value="nature">Nature</option>
+            </select>
+
+        </section>
+
+        <!-- Destination Cards -->
+        <section class="destination-container" id="destinationContainer">
+
+            <div class="destination-card" data-category="mountains">
+                <img src="https://images.unsplash.com/photo-1472396961693-142e6e269027?w=600" alt="Manali">
+                <div class="destination-info">
+                    <h3>Manali</h3>
+                    <p>Himachal Pradesh, India</p>
+                    <span>Mountains</span>
+                </div>
+            </div>
+
+            <div class="destination-card" data-category="beaches">
+                <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600" alt="Goa">
+                <div class="destination-info">
+                    <h3>Goa</h3>
+                    <p>Goa, India</p>
+                    <span>Beaches</span>
+                </div>
+            </div>
+
+            <div class="destination-card" data-category="mountains">
+                <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?w=600" alt="Shimla">
+                <div class="destination-info">
+                    <h3>Shimla</h3>
+                    <p>Himachal Pradesh, India</p>
+                    <span>Mountains</span>
+                </div>
+            </div>
+
+            <div class="destination-card" data-category="cities">
+                <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=600" alt="Mumbai">
+                <div class="destination-info">
+                    <h3>Mumbai</h3>
+                    <p>Maharashtra, India</p>
+                    <span>Cities</span>
+                </div>
+            </div>
+
+            <div class="destination-card" data-category="nature">
+                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600" alt="Munnar">
+                <div class="destination-info">
+                    <h3>Munnar</h3>
+                    <p>Kerala, India</p>
+                    <span>Nature</span>
+                </div>
+            </div>
+
+            <div class="destination-card" data-category="beaches">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600" alt="Andaman">
+                <div class="destination-info">
+                    <h3>Andaman</h3>
+                    <p>Andaman and Nicobar Islands, India</p>
+                    <span>Beaches</span>
+                </div>
+            </div>
+
+        </section>
+
+        <p id="noResults">No destinations found.</p>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 TravelMate. All rights reserved.</p>
+    </footer>
+
+    <dialog id="customAlertModal" class="custom-alert-modal">
+        <div class="custom-alert-content">
+            <p id="customAlertText">Message</p>
+            <button type="button" class="primary-btn" id="closeCustomAlert">OK</button>
+        </div>
+    </dialog>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/destinations.js"></script>
+
+</body>
+</html>

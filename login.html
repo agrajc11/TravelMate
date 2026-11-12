@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | TravelMate</title>
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="brand">TravelMate<span>.</span></div>
+                <h1>Welcome Back</h1>
+                <p>Log in to continue planning your journey.</p>
+            </div>
+
+            <form id="loginForm" novalidate>
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Enter your email" autocomplete="email" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password" required>
+
+                <button type="submit" class="primary-btn">Login</button>
+            </form>
+
+            <p class="auth-switch">
+                Don’t have an account? <a href="register.html">Create one</a>
+            </p>
+
+            <p class="demo-note">
+                Demo only: use a dummy password. Local Storage authentication is not secure and must not be used for real accounts.
+            </p>
+        </div>
+    </div>
+
+    <dialog id="customAlertModal" class="custom-alert-modal">
+        <div class="custom-alert-content">
+            <p id="customAlertText">Message</p>
+            <button type="button" class="primary-btn" data-close-alert>OK</button>
+        </div>
+    </dialog>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>
