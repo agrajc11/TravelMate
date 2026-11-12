@@ -503,6 +503,8 @@ try {
     }
 }
 
+window.travelMateSession = storedSession;
+
 if (storedSession) {
     updateUserAvatar(storedSession);
 

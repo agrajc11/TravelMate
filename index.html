@@ -58,7 +58,7 @@
                 <div class="welcome-section">
                     <div>
                         <p class="home-eyebrow">YOUR TRAVEL WORKSPACE</p>
-                        <h1>Plan a trip worth remembering</h1>
+                        <h1 id="dashboardWelcome">Plan a trip worth remembering</h1>
                         <p>Discover places, organize your plans, and keep every part of your journey together.</p>
                     </div>
                 </div>
@@ -71,10 +71,58 @@
                         <div class="home-hero-actions">
                             <a class="home-primary-link" href="trips.html">Plan a Trip</a>
                             <a class="home-secondary-link" href="destinations.html">Explore Destinations</a>
+                            <a class="home-secondary-link" href="itinerary.html">Build an Itinerary</a>
                         </div>
                     </div>
                     <div class="home-hero-mark" aria-hidden="true">✈</div>
                 </section>
+
+                <section class="home-guest-notice" id="dashboardGuestNotice">
+                    <div>
+                        <h2>Your travel dashboard is ready</h2>
+                        <p>Log in to see your trips, activity counts, and upcoming plans here.</p>
+                    </div>
+                    <a href="login.html" class="home-primary-link">Log In</a>
+                </section>
+
+                <section class="home-dashboard-section" id="dashboardData" aria-label="Your travel summary" hidden>
+                    <div class="home-summary-grid">
+                        <article class="summary-card">
+                            <span>Total Trips</span>
+                            <h2 id="dashboardTotalTrips">0</h2>
+                        </article>
+                        <article class="summary-card">
+                            <span>Upcoming Trips</span>
+                            <h2 id="dashboardUpcomingTrips">0</h2>
+                        </article>
+                        <article class="summary-card">
+                            <span>Completed Trips</span>
+                            <h2 id="dashboardCompletedTrips">0</h2>
+                        </article>
+                        <article class="summary-card">
+                            <span>Total Activities</span>
+                            <h2 id="dashboardTotalActivities">0</h2>
+                        </article>
+                    </div>
+
+                    <section class="home-recent-activities" aria-labelledby="recentActivitiesTitle">
+                        <div class="section-heading">
+                            <div>
+                                <p class="home-eyebrow">YOUR PLANS</p>
+                                <h2 id="recentActivitiesTitle">Recent activities</h2>
+                            </div>
+                            <a href="itinerary.html" class="home-view-link">View itinerary <span aria-hidden="true">→</span></a>
+                        </div>
+                        <div class="home-activity-list" id="recentActivityList"></div>
+                        <p class="home-activity-empty" id="recentActivityEmpty" hidden>
+                            No activities yet. Add activities from your itinerary.
+                        </p>
+                    </section>
+                </section>
+
+                <p class="home-dashboard-error" id="dashboardError" role="alert" hidden>
+                    Your dashboard data could not be loaded. Please refresh and try again.
+                </p>
 
                 <section class="home-modules" aria-labelledby="modulesTitle">
                     <div class="section-heading">
