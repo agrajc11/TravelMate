@@ -1,4 +1,7 @@
 
+if (!window.travelMateSession) {
+    window.location.replace("login.html");
+} else {
 const tripSelect = document.getElementById("selectedTrip");
 const activityForm = document.getElementById("activityForm");
 const activityModal = document.getElementById("activityModal");
@@ -7,8 +10,8 @@ const confirmModal = document.getElementById("confirmModal");
 const confirmMessage = document.getElementById("confirmMessage");
 const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
 
-let trips = JSON.parse(localStorage.getItem("travelMateTrips")) || [];
-let itineraries = JSON.parse(localStorage.getItem("travelMateItineraries")) || {};
+let trips = loadCurrentUserTrips();
+let itineraries = loadCurrentUserItineraries();
 
 let editingActivityId = null;
 let pendingDeleteActivityId = null;
@@ -52,10 +55,7 @@ function getActivities() {
 
 // Save itinerary data
 function saveItineraries() {
-    localStorage.setItem(
-        "travelMateItineraries",
-        JSON.stringify(itineraries)
-    );
+    saveCurrentUserItineraries(itineraries);
 }
 
 // Load saved trips into dropdown
@@ -345,3 +345,4 @@ document.getElementById("menuToggle")
 // Initial setup
 loadTrips();
 renderActivities();
+}

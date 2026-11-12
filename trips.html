@@ -7,7 +7,7 @@
     <title>My Trips | TravelMate</title>
     <link rel="stylesheet" href="css/trips.css">
 </head>
-<body>
+<body data-requires-auth="true">
 
 <div class="dashboard">
 
@@ -44,7 +44,10 @@
                 <p class="topbar-label">TRAVEL PLANNER</p>
                 <h2>My Trips</h2>
             </div>
-            <button type="button" class="profile" id="logoutButton">Logout</button>
+            <div class="profile-group">
+                <span class="profile" id="profileName">Traveler</span>
+                <button type="button" class="logout-btn" id="logoutButton">Logout</button>
+            </div>
         </header>
 
         <section class="page-content">

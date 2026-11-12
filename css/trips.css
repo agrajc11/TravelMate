@@ -119,6 +119,22 @@ button, input, select, textarea {
     cursor: pointer;
 }
 
+.profile-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logout-btn {
+    border: 1px solid #dfe8e3;
+    border-radius: 8px;
+    padding: 9px 13px;
+    background: white;
+    color: #176b5b;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 .menu-toggle {
     display: none;
     border: none;

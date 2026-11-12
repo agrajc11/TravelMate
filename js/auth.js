@@ -42,6 +42,187 @@ function getUsers() {
     return users;
 }
 
+function readStoredJson(key, fallbackValue) {
+    const storedValue = localStorage.getItem(key);
+    return storedValue === null ? fallbackValue : JSON.parse(storedValue);
+}
+
+function isStorageMap(value) {
+    return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function mergeRecords(existingRecords, legacyRecords) {
+    const merged = existingRecords.slice();
+    const existingIds = new Set(
+        existingRecords
+            .filter(record => record && record.id !== undefined && record.id !== null)
+            .map(record => String(record.id))
+    );
+
+    legacyRecords.forEach(function (record) {
+        if (!record || record.id === undefined || record.id === null) {
+            merged.push(record);
+        } else if (!existingIds.has(String(record.id))) {
+            merged.push(record);
+            existingIds.add(String(record.id));
+        }
+    });
+
+    return merged;
+}
+
+function migrateLegacyTravelData(userId) {
+    const migrationKey = "travelMateDataMigrationV1";
+    if (localStorage.getItem(migrationKey)) return;
+
+    const scopedTrips = readStoredJson("travelMateTripsByUser", {});
+    const scopedItineraries = readStoredJson("travelMateItinerariesByUser", {});
+    const legacyTrips = readStoredJson("travelMateTrips", []);
+    const legacyItineraries = readStoredJson("travelMateItineraries", {});
+
+    if (
+        !isStorageMap(scopedTrips) ||
+        !isStorageMap(scopedItineraries) ||
+        !Array.isArray(legacyTrips) ||
+        !isStorageMap(legacyItineraries)
+    ) {
+        throw new Error("Saved trip or itinerary data has an unexpected format.");
+    }
+
+    const userKey = String(userId);
+    const userTrips = scopedTrips[userKey] || [];
+    const userItineraries = scopedItineraries[userKey] || {};
+
+    if (!Array.isArray(userTrips) || !isStorageMap(userItineraries)) {
+        throw new Error("User-specific trip data has an unexpected format.");
+    }
+
+    scopedTrips[userKey] = mergeRecords(userTrips, legacyTrips);
+
+    Object.keys(legacyItineraries).forEach(function (tripId) {
+        const legacyActivities = legacyItineraries[tripId];
+        if (!Array.isArray(legacyActivities)) {
+            throw new Error("An existing itinerary has an unexpected format.");
+        }
+
+        const existingActivities = userItineraries[tripId] || [];
+        if (!Array.isArray(existingActivities)) {
+            throw new Error("A user-specific itinerary has an unexpected format.");
+        }
+
+        userItineraries[tripId] = mergeRecords(existingActivities, legacyActivities);
+    });
+
+    scopedItineraries[userKey] = userItineraries;
+    localStorage.setItem("travelMateTripsByUser", JSON.stringify(scopedTrips));
+    localStorage.setItem("travelMateItinerariesByUser", JSON.stringify(scopedItineraries));
+    localStorage.setItem(migrationKey, JSON.stringify({
+        migratedToUserId: userKey,
+        migratedAt: new Date().toISOString()
+    }));
+}
+
+function loadCurrentUserTrips() {
+    const session = window.travelMateSession;
+    if (!session) throw new Error("A signed-in session is required to load trips.");
+
+    const tripsByUser = readStoredJson("travelMateTripsByUser", {});
+    if (!isStorageMap(tripsByUser)) {
+        throw new Error("Saved user trip data has an unexpected format.");
+    }
+
+    const trips = tripsByUser[String(session.userId)] || [];
+    if (!Array.isArray(trips)) {
+        throw new Error("Saved trips for this account have an unexpected format.");
+    }
+
+    return trips;
+}
+
+function saveCurrentUserTrips(trips) {
+    const session = window.travelMateSession;
+    if (!session) throw new Error("A signed-in session is required to save trips.");
+    if (!Array.isArray(trips)) throw new Error("Trips must be saved as a list.");
+
+    const tripsByUser = readStoredJson("travelMateTripsByUser", {});
+    if (!isStorageMap(tripsByUser)) {
+        throw new Error("Saved user trip data has an unexpected format.");
+    }
+
+    tripsByUser[String(session.userId)] = trips;
+    localStorage.setItem("travelMateTripsByUser", JSON.stringify(tripsByUser));
+}
+
+function loadCurrentUserItineraries() {
+    const session = window.travelMateSession;
+    if (!session) throw new Error("A signed-in session is required to load itineraries.");
+
+    const itinerariesByUser = readStoredJson("travelMateItinerariesByUser", {});
+    if (!isStorageMap(itinerariesByUser)) {
+        throw new Error("Saved user itinerary data has an unexpected format.");
+    }
+
+    const itineraries = itinerariesByUser[String(session.userId)] || {};
+    if (!isStorageMap(itineraries)) {
+        throw new Error("Saved itineraries for this account have an unexpected format.");
+    }
+
+    return itineraries;
+}
+
+function saveCurrentUserItineraries(itineraries) {
+    const session = window.travelMateSession;
+    if (!session) throw new Error("A signed-in session is required to save itineraries.");
+    if (!isStorageMap(itineraries)) {
+        throw new Error("Itineraries must be saved as a trip-keyed object.");
+    }
+
+    const itinerariesByUser = readStoredJson("travelMateItinerariesByUser", {});
+    if (!isStorageMap(itinerariesByUser)) {
+        throw new Error("Saved user itinerary data has an unexpected format.");
+    }
+
+    itinerariesByUser[String(session.userId)] = itineraries;
+    localStorage.setItem("travelMateItinerariesByUser", JSON.stringify(itinerariesByUser));
+}
+
+function initializeProtectedPage() {
+    if (!document.body.hasAttribute("data-requires-auth")) return;
+
+    let session;
+    try {
+        session = readStoredJson("travelMateSession", null);
+    } catch (error) {
+        showAuthAlert("Could not read your login session. Please log in again.");
+        window.location.replace("login.html");
+        return;
+    }
+
+    if (!session || session.userId === undefined || session.userId === null) {
+        window.location.replace("login.html");
+        return;
+    }
+
+    window.travelMateSession = session;
+    try {
+        migrateLegacyTravelData(session.userId);
+        loadCurrentUserTrips();
+        loadCurrentUserItineraries();
+    } catch (error) {
+        window.travelMateSession = null;
+        showAuthAlert("Could not prepare your saved travel data. Your original data has been kept.");
+        window.setTimeout(function () {
+            window.location.replace("login.html");
+        }, 1200);
+        return;
+    }
+
+    const profileName = document.getElementById("profileName");
+    if (profileName) {
+        profileName.textContent = session.fullName || session.email || "Traveler";
+    }
+}
+
 const supportedEmailDomains = [
     "gmail.com",
     "yahoo.com",
@@ -238,9 +419,14 @@ if (loginForm) {
         };
 
         try {
+            migrateLegacyTravelData(user.id);
+            window.travelMateSession = session;
+            loadCurrentUserTrips();
+            loadCurrentUserItineraries();
             localStorage.setItem("travelMateSession", JSON.stringify(session));
         } catch (error) {
-            showAuthAlert("Could not save your login session. Check browser Local Storage and try again.");
+            window.travelMateSession = null;
+            showAuthAlert("Could not prepare your travel data or save your login session. Your original data has been kept.");
             return;
         }
 
@@ -282,7 +468,10 @@ if (authNavLink) {
                 signupNavLink.hidden = true;
             }
         }
+
     } catch (error) {
         showAuthAlert("Could not read your login session. Check browser Local Storage and try again.");
     }
 }
+
+initializeProtectedPage();

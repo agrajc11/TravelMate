@@ -1,4 +1,7 @@
 
+if (!window.travelMateSession) {
+    window.location.replace("login.html");
+} else {
 const tripForm = document.getElementById("tripForm");
 const tripModal = document.getElementById("tripModal");
 const tripList = document.getElementById("tripList");
@@ -6,7 +9,7 @@ const confirmModal = document.getElementById("confirmModal");
 const confirmMessage = document.getElementById("confirmMessage");
 const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
 
-let trips = JSON.parse(localStorage.getItem("travelMateTrips")) || [];
+let trips = loadCurrentUserTrips();
 let editingTripId = null;
 let pendingDeleteTripId = null;
 
@@ -29,7 +32,7 @@ const today = new Date();
 today.setHours(0, 0, 0, 0);
 
 function saveTrips() {
-    localStorage.setItem("travelMateTrips", JSON.stringify(trips));
+    saveCurrentUserTrips(trips);
 }
 
 function closeDeleteConfirm() {
@@ -235,3 +238,4 @@ document.getElementById("menuToggle").addEventListener("click", function() {
 
 // Initial display
 renderTrips();
+}
