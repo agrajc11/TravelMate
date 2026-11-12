@@ -186,6 +186,19 @@ function saveCurrentUserItineraries(itineraries) {
     localStorage.setItem("travelMateItinerariesByUser", JSON.stringify(itinerariesByUser));
 }
 
+function updateUserAvatar(session) {
+    const avatar = document.getElementById("profileAvatar");
+    if (!avatar || !session) return;
+
+    const displayName = (session.fullName || session.email || "Traveler").trim();
+    const firstLetter = Array.from(displayName)[0] || "T";
+
+    avatar.textContent = firstLetter.toLocaleUpperCase();
+    avatar.title = "Signed in as " + displayName;
+    avatar.setAttribute("aria-label", "Signed in as " + displayName);
+    avatar.hidden = false;
+}
+
 function initializeProtectedPage() {
     if (!document.body.hasAttribute("data-requires-auth")) return;
 
@@ -217,10 +230,7 @@ function initializeProtectedPage() {
         return;
     }
 
-    const profileName = document.getElementById("profileName");
-    if (profileName) {
-        profileName.textContent = session.fullName || session.email || "Traveler";
-    }
+    updateUserAvatar(session);
 }
 
 const supportedEmailDomains = [
@@ -446,31 +456,58 @@ function endDemoSession() {
 }
 
 const logoutButton = document.getElementById("logoutButton");
+const profileAvatar = document.getElementById("profileAvatar");
+const profileMenu = document.getElementById("profileMenu");
 
 if (logoutButton) {
     logoutButton.addEventListener("click", endDemoSession);
 }
 
-const authNavLink = document.getElementById("authNavLink");
-const signupNavLink = document.getElementById("signupNavLink");
+function closeProfileMenu() {
+    if (!profileMenu || !profileAvatar) return;
 
-if (authNavLink) {
-    try {
-        if (localStorage.getItem("travelMateSession")) {
-            authNavLink.textContent = "Logout";
-            authNavLink.href = "#";
-            authNavLink.addEventListener("click", function (event) {
-                event.preventDefault();
-                endDemoSession();
-            });
+    profileMenu.hidden = true;
+    profileAvatar.setAttribute("aria-expanded", "false");
+}
 
-            if (signupNavLink) {
-                signupNavLink.hidden = true;
-            }
+if (profileAvatar && profileMenu) {
+    profileAvatar.addEventListener("click", function () {
+        const isOpening = profileMenu.hidden;
+        profileMenu.hidden = !isOpening;
+        profileAvatar.setAttribute("aria-expanded", String(isOpening));
+    });
+
+    document.addEventListener("click", function (event) {
+        if (!profileAvatar.parentElement.contains(event.target)) {
+            closeProfileMenu();
         }
+    });
 
-    } catch (error) {
-        showAuthAlert("Could not read your login session. Check browser Local Storage and try again.");
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !profileMenu.hidden) {
+            closeProfileMenu();
+            profileAvatar.focus();
+        }
+    });
+}
+
+const authNavLink = document.getElementById("authNavLink");
+const navActions = document.getElementById("navActions");
+
+let storedSession = null;
+try {
+    storedSession = readStoredJson("travelMateSession", null);
+} catch (error) {
+    if (authNavLink) {
+        showAuthAlert("Could not read your login session. Please log in again.");
+    }
+}
+
+if (storedSession) {
+    updateUserAvatar(storedSession);
+
+    if (navActions) {
+        navActions.hidden = true;
     }
 }
 

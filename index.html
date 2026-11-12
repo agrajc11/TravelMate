@@ -1,98 +1,116 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TravelMate | Explore the World</title>
+    <title>Home | TravelMate</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/trips.css">
 </head>
 <body>
+    <div class="dashboard">
+        <aside class="sidebar" id="sidebar">
+            <div class="brand">TravelMate<span>.</span></div>
 
-    <!-- Navigation Bar -->
-    
-    <header>
-        <nav class="navbar">
-            <h2 class="logo">TravelMate.</h2>
+            <nav class="sidebar-nav">
+                <p class="nav-heading">MENU</p>
+                <a href="index.html" class="nav-link active">⌂ Home</a>
+                <a href="destinations.html" class="nav-link">⌖ Destinations</a>
+                <a href="trips.html" class="nav-link">✈ My Trips</a>
+                <a href="itinerary.html" class="nav-link">▤ Itinerary</a>
 
-            <button class="menu-toggle" id="menuToggle"
-                    aria-label="Toggle navigation"
-                    aria-expanded="false">
-                ☰
-            </button>
+                <p class="nav-heading">PERSONAL</p>
+                <a href="#" class="nav-link">₹ Budget Planner</a>
+                <a href="#" class="nav-link">♡ Favorites</a>
+            </nav>
 
-            <ul class="nav-links" id="navLinks">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="destinations.html">Destinations</a></li>
-                <li><a href="trips.html">My Trips</a></li>
-                <li><a href="itinerary.html">Itinerary</a></li>
-                <li><a href="index.html#features">Features</a></li>
-                <li><a href="index.html#about">About</a></li>
-            </ul>
-
-            <div class="nav-actions">
-                <a href="login.html" class="nav-button" id="authNavLink">Login</a>
-                <a href="register.html" class="nav-button signup-button" id="signupNavLink">Sign Up</a>
+            <div class="sidebar-bottom">
+                <p>Plan your next adventure!</p>
+                <span>TravelMate © 2026</span>
             </div>
-        </nav>
-    </header>
+        </aside>
 
+        <main class="main-content">
+            <header class="topbar">
+                <button class="menu-toggle" id="menuToggle"
+                    aria-label="Toggle sidebar" aria-controls="sidebar"
+                    aria-expanded="false">☰</button>
+                <div>
+                    <p class="topbar-label">TRAVEL PLANNER</p>
+                    <h2>Home</h2>
+                </div>
+                <div class="profile-group">
+                    <button type="button" class="profile-avatar" id="profileAvatar"
+                        aria-haspopup="menu" aria-controls="profileMenu"
+                        aria-expanded="false" aria-label="Open profile menu" hidden></button>
+                    <div class="profile-menu" id="profileMenu" role="menu" hidden>
+                        <button type="button" class="profile-menu-item" id="logoutButton"
+                            role="menuitem">Logout</button>
+                    </div>
+                    <div class="nav-actions" id="navActions">
+                        <a href="login.html" class="nav-button" id="authNavLink">Login</a>
+                        <a href="register.html" class="nav-button signup-button" id="signupNavLink">Sign Up</a>
+                    </div>
+                </div>
+            </header>
 
-    <!-- Hero Section -->
-    <main>
-        <section class="hero" id="home">
-            <div class="hero-content">
-                <p class="tagline">YOUR JOURNEY, YOUR WAY</p>
-
-                <h1>Explore More.<br>Worry Less.</h1>
-
-                <p class="hero-description">
-                    Plan your trips, organize your itinerary,
-                    manage your budget and make every journey memorable.
-                </p>
-
-                <a href="#features" class="primary-button">
-                    Start Planning
-                </a>
-            </div>
-        </section>
-
-        <!-- Features Section -->
-        <section class="features" id="features">
-            <h2>Everything You Need for Your Journey</h2>
-
-            <div class="feature-container">
-                <div class="feature-card">
-                    <h3>Trip Planning</h3>
-                    <p>Create and manage all your travel plans in one place.</p>
+            <section class="page-content home-content">
+                <div class="welcome-section">
+                    <div>
+                        <p class="home-eyebrow">YOUR TRAVEL WORKSPACE</p>
+                        <h1>Plan a trip worth remembering</h1>
+                        <p>Discover places, organize your plans, and keep every part of your journey together.</p>
+                    </div>
                 </div>
 
-                <div class="feature-card">
-                    <h3>Itinerary Organizer</h3>
-                    <p>Organize your activities, dates and destinations.</p>
-                </div>
+                <section class="home-hero" aria-labelledby="homeHeroTitle">
+                    <div>
+                        <p class="home-hero-label">YOUR JOURNEY, YOUR WAY</p>
+                        <h2 id="homeHeroTitle">The next adventure starts with a plan.</h2>
+                        <p>Build your trip step by step, from choosing a destination to organizing each day.</p>
+                        <div class="home-hero-actions">
+                            <a class="home-primary-link" href="trips.html">Plan a Trip</a>
+                            <a class="home-secondary-link" href="destinations.html">Explore Destinations</a>
+                        </div>
+                    </div>
+                    <div class="home-hero-mark" aria-hidden="true">✈</div>
+                </section>
 
-                <div class="feature-card">
-                    <h3>Budget Planner</h3>
-                    <p>Track your travel expenses and manage your budget.</p>
-                </div>
-            </div>
-        </section>
+                <section class="home-modules" aria-labelledby="modulesTitle">
+                    <div class="section-heading">
+                        <div>
+                            <p class="home-eyebrow">GET ORGANIZED</p>
+                            <h2 id="modulesTitle">Your travel tools</h2>
+                        </div>
+                        <p>Choose a module to continue planning.</p>
+                    </div>
 
-        <!-- About Section -->
-        <section class="about" id="about">
-            <h2>About TravelMate</h2>
-            <p>
-                TravelMate is a travel planning platform designed
-                to make organizing trips simple and convenient.
-            </p>
-        </section>
-    </main>
+                    <div class="home-module-grid">
+                        <a href="destinations.html" class="home-module-card">
+                            <span class="module-icon">⌖</span>
+                            <h3>Destinations</h3>
+                            <p>Search and browse places for your next getaway.</p>
+                            <span class="module-link">Explore places <span aria-hidden="true">→</span></span>
+                        </a>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2026 TravelMate. All rights reserved.</p>
-    </footer>
+                        <a href="trips.html" class="home-module-card">
+                            <span class="module-icon">✈</span>
+                            <h3>My Trips</h3>
+                            <p>Create and manage your travel plans in one place.</p>
+                            <span class="module-link">Manage trips <span aria-hidden="true">→</span></span>
+                        </a>
+
+                        <a href="itinerary.html" class="home-module-card">
+                            <span class="module-icon">▤</span>
+                            <h3>Itinerary</h3>
+                            <p>Arrange activities, times, and locations for each trip.</p>
+                            <span class="module-link">Plan activities <span aria-hidden="true">→</span></span>
+                        </a>
+                    </div>
+                </section>
+            </section>
+        </main>
+    </div>
 
     <dialog id="customAlertModal" class="custom-alert-modal">
         <div class="custom-alert-content">
@@ -103,5 +121,6 @@
 
     <script src="js/main.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/home.js"></script>
 </body>
 </html>

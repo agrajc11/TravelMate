@@ -45,8 +45,13 @@
             </div>
 
             <div class="profile-group">
-                <span class="profile" id="profileName">Traveler</span>
-                <button type="button" class="logout-btn" id="logoutButton">Logout</button>
+                <button type="button" class="profile-avatar" id="profileAvatar"
+                    aria-haspopup="menu" aria-controls="profileMenu"
+                    aria-expanded="false" aria-label="Open profile menu" hidden></button>
+                <div class="profile-menu" id="profileMenu" role="menu" hidden>
+                    <button type="button" class="profile-menu-item" id="logoutButton"
+                        role="menuitem">Logout</button>
+                </div>
             </div>
         </header>
 

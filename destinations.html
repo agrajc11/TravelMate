@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,130 +5,139 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Destinations | TravelMate</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/trips.css">
     <link rel="stylesheet" href="css/destinations.css">
 </head>
 <body data-requires-auth="true">
+    <div class="dashboard">
+        <aside class="sidebar" id="sidebar">
+            <div class="brand">TravelMate<span>.</span></div>
 
-    
-    <header>
-        <nav class="navbar">
-            <h2 class="logo">TravelMate.</h2>
+            <nav class="sidebar-nav">
+                <p class="nav-heading">MENU</p>
+                <a href="index.html" class="nav-link">⌂ Home</a>
+                <a href="destinations.html" class="nav-link active">⌖ Destinations</a>
+                <a href="trips.html" class="nav-link">✈ My Trips</a>
+                <a href="itinerary.html" class="nav-link">▤ Itinerary</a>
 
-            <button class="menu-toggle" id="menuToggle"
-                    aria-label="Toggle navigation"
-                    aria-expanded="false">
-                ☰
-            </button>
+                <p class="nav-heading">PERSONAL</p>
+                <a href="#" class="nav-link">₹ Budget Planner</a>
+                <a href="#" class="nav-link">♡ Favorites</a>
+            </nav>
 
-            <ul class="nav-links" id="navLinks">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="destinations.html">Destinations</a></li>
-                <li><a href="trips.html">My Trips</a></li>
-                <li><a href="itinerary.html">Itinerary</a></li>
-                <li><a href="index.html#features">Features</a></li>
-                <li><a href="index.html#about">About</a></li>
-            </ul>
-
-            <div class="nav-actions">
-                <a href="login.html" class="nav-button" id="authNavLink">Login</a>
-                <a href="register.html" class="nav-button signup-button" id="signupNavLink">Sign Up</a>
+            <div class="sidebar-bottom">
+                <p>Plan your next adventure!</p>
+                <span>TravelMate © 2026</span>
             </div>
-        </nav>
-    </header>
+        </aside>
 
-
-    <main>
-        <section class="destination-heading">
-            <p class="tagline">DISCOVER NEW PLACES</p>
-            <h1>Explore Destinations</h1>
-            <p>Find your next favourite travel destination.</p>
-        </section>
-
-        <!-- Search and Filter -->
-        <section class="destination-controls">
-
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="Search destinations..."
-            >
-
-            <select id="categoryFilter">
-                <option value="all">All Categories</option>
-                <option value="mountains">Mountains</option>
-                <option value="beaches">Beaches</option>
-                <option value="cities">Cities</option>
-                <option value="nature">Nature</option>
-            </select>
-
-        </section>
-
-        <!-- Destination Cards -->
-        <section class="destination-container" id="destinationContainer">
-
-            <div class="destination-card" data-category="mountains">
-                <img src="https://images.unsplash.com/photo-1472396961693-142e6e269027?w=600" alt="Manali">
-                <div class="destination-info">
-                    <h3>Manali</h3>
-                    <p>Himachal Pradesh, India</p>
-                    <span>Mountains</span>
+        <main class="main-content">
+            <header class="topbar">
+                <button class="menu-toggle" id="menuToggle"
+                    aria-label="Toggle sidebar" aria-controls="sidebar"
+                    aria-expanded="false">☰</button>
+                <div>
+                    <p class="topbar-label">TRAVEL PLANNER</p>
+                    <h2>Destinations</h2>
                 </div>
-            </div>
-
-            <div class="destination-card" data-category="beaches">
-                <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600" alt="Goa">
-                <div class="destination-info">
-                    <h3>Goa</h3>
-                    <p>Goa, India</p>
-                    <span>Beaches</span>
+                <div class="profile-group">
+                    <button type="button" class="profile-avatar" id="profileAvatar"
+                        aria-haspopup="menu" aria-controls="profileMenu"
+                        aria-expanded="false" aria-label="Open profile menu" hidden></button>
+                    <div class="profile-menu" id="profileMenu" role="menu" hidden>
+                        <button type="button" class="profile-menu-item" id="logoutButton"
+                            role="menuitem">Logout</button>
+                    </div>
                 </div>
-            </div>
+            </header>
 
-            <div class="destination-card" data-category="mountains">
-                <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?w=600" alt="Shimla">
-                <div class="destination-info">
-                    <h3>Shimla</h3>
-                    <p>Himachal Pradesh, India</p>
-                    <span>Mountains</span>
+            <section class="page-content destination-content">
+                <div class="welcome-section">
+                    <div>
+                        <p class="destination-eyebrow">DISCOVER NEW PLACES</p>
+                        <h1>Find your next destination</h1>
+                        <p>Browse places and find inspiration for your next journey.</p>
+                    </div>
                 </div>
-            </div>
 
-            <div class="destination-card" data-category="cities">
-                <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=600" alt="Mumbai">
-                <div class="destination-info">
-                    <h3>Mumbai</h3>
-                    <p>Maharashtra, India</p>
-                    <span>Cities</span>
-                </div>
-            </div>
+                <section class="destination-controls" aria-label="Search and filter destinations">
+                    <input
+                        type="search"
+                        id="searchInput"
+                        placeholder="Search destinations..."
+                        aria-label="Search destinations"
+                    >
 
-            <div class="destination-card" data-category="nature">
-                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600" alt="Munnar">
-                <div class="destination-info">
-                    <h3>Munnar</h3>
-                    <p>Kerala, India</p>
-                    <span>Nature</span>
-                </div>
-            </div>
+                    <select id="categoryFilter" aria-label="Filter by category">
+                        <option value="all">All Categories</option>
+                        <option value="mountains">Mountains</option>
+                        <option value="beaches">Beaches</option>
+                        <option value="cities">Cities</option>
+                        <option value="nature">Nature</option>
+                    </select>
+                </section>
 
-            <div class="destination-card" data-category="beaches">
-                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600" alt="Andaman">
-                <div class="destination-info">
-                    <h3>Andaman</h3>
-                    <p>Andaman and Nicobar Islands, India</p>
-                    <span>Beaches</span>
-                </div>
-            </div>
+                <section class="destination-container" id="destinationContainer"
+                    aria-label="Available destinations">
+                    <article class="destination-card" data-category="mountains">
+                        <img src="https://images.unsplash.com/photo-1472396961693-142e6e269027?w=600" alt="Mountain landscape in Manali">
+                        <div class="destination-info">
+                            <span class="destination-category">Mountains</span>
+                            <h3>Manali</h3>
+                            <p>Himachal Pradesh, India</p>
+                        </div>
+                    </article>
 
-        </section>
+                    <article class="destination-card" data-category="beaches">
+                        <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600" alt="Beach in Goa">
+                        <div class="destination-info">
+                            <span class="destination-category">Beaches</span>
+                            <h3>Goa</h3>
+                            <p>Goa, India</p>
+                        </div>
+                    </article>
 
-        <p id="noResults">No destinations found.</p>
+                    <article class="destination-card" data-category="mountains">
+                        <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?w=600" alt="Mountain scenery near Shimla">
+                        <div class="destination-info">
+                            <span class="destination-category">Mountains</span>
+                            <h3>Shimla</h3>
+                            <p>Himachal Pradesh, India</p>
+                        </div>
+                    </article>
 
-    </main>
+                    <article class="destination-card" data-category="cities">
+                        <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=600" alt="City skyline in Mumbai">
+                        <div class="destination-info">
+                            <span class="destination-category">Cities</span>
+                            <h3>Mumbai</h3>
+                            <p>Maharashtra, India</p>
+                        </div>
+                    </article>
 
-    <footer>
-        <p>&copy; 2026 TravelMate. All rights reserved.</p>
-    </footer>
+                    <article class="destination-card" data-category="nature">
+                        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600" alt="Green forest near Munnar">
+                        <div class="destination-info">
+                            <span class="destination-category">Nature</span>
+                            <h3>Munnar</h3>
+                            <p>Kerala, India</p>
+                        </div>
+                    </article>
+
+                    <article class="destination-card" data-category="beaches">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600" alt="Tropical beach in the Andaman Islands">
+                        <div class="destination-info">
+                            <span class="destination-category">Beaches</span>
+                            <h3>Andaman</h3>
+                            <p>Andaman and Nicobar Islands, India</p>
+                        </div>
+                    </article>
+                </section>
+
+                <p id="noResults" role="status">No destinations found. Try changing your search or category.</p>
+            </section>
+        </main>
+    </div>
 
     <dialog id="customAlertModal" class="custom-alert-modal">
         <div class="custom-alert-content">
@@ -141,6 +149,5 @@
     <script src="js/main.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/destinations.js"></script>
-
 </body>
 </html>

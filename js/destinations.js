@@ -5,6 +5,8 @@ const categoryFilter = document.getElementById("categoryFilter");
 
 const destinationCards = document.querySelectorAll(".destination-card");
 const noResults = document.getElementById("noResults");
+const destinationSidebarToggle = document.getElementById("menuToggle");
+const destinationSidebar = document.getElementById("sidebar");
 
 // Function to filter destinations
 function filterDestinations() {
@@ -55,5 +57,19 @@ searchInput.addEventListener("input", filterDestinations);
 
 // Category filter event
 categoryFilter.addEventListener("change", filterDestinations);
+
+if (destinationSidebarToggle && destinationSidebar) {
+    destinationSidebarToggle.addEventListener("click", function() {
+        const isOpen = destinationSidebar.classList.toggle("open");
+        destinationSidebarToggle.setAttribute("aria-expanded", isOpen);
+    });
+
+    destinationSidebar.querySelectorAll(".nav-link").forEach(function(link) {
+        link.addEventListener("click", function() {
+            destinationSidebar.classList.remove("open");
+            destinationSidebarToggle.setAttribute("aria-expanded", "false");
+        });
+    });
+}
 
 console.log("Destination module loaded successfully!");
