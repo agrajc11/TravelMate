@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorites | TravelMate</title>
+    <link rel="stylesheet" href="css/trips.css">
+    <link rel="stylesheet" href="css/destinations.css">
+    <link rel="stylesheet" href="css/favorites.css">
+</head>
+<body data-requires-auth="true">
+    <div class="dashboard">
+        <aside class="sidebar" id="sidebar">
+            <div class="brand">TravelMate<span>.</span></div>
+            <nav class="sidebar-nav">
+                <p class="nav-heading">MENU</p>
+                <a href="index.html" class="nav-link">⌂ Dashboard</a>
+                <a href="destinations.html" class="nav-link">⌖ Destinations</a>
+                <a href="trips.html" class="nav-link">✈ My Trips</a>
+                <a href="itinerary.html" class="nav-link">▤ Itinerary</a>
+                <p class="nav-heading">PERSONAL</p>
+                <a href="budget.html" class="nav-link">₹ Budget Planner</a>
+                <a href="favorites.html" class="nav-link active">♡ Favorites</a>
+            </nav>
+            <div class="sidebar-bottom">
+                <p>Plan your next adventure!</p>
+                <span>TravelMate © 2026</span>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <button class="menu-toggle" id="menuToggle"
+                    aria-label="Toggle sidebar" aria-controls="sidebar"
+                    aria-expanded="false">☰</button>
+                <div>
+                    <p class="topbar-label">TRAVEL PLANNER</p>
+                    <h2>Favorites</h2>
+                </div>
+                <div class="profile-group">
+                    <button type="button" class="profile-avatar" id="profileAvatar"
+                        aria-haspopup="menu" aria-controls="profileMenu"
+                        aria-expanded="false" aria-label="Open profile menu" hidden></button>
+                    <div class="profile-menu" id="profileMenu" role="menu" hidden>
+                        <button type="button" class="profile-menu-item" id="logoutButton"
+                            role="menuitem">Logout</button>
+                    </div>
+                </div>
+            </header>
+
+            <section class="page-content destination-content favorites-content">
+                <div class="welcome-section">
+                    <div>
+                        <p class="destination-eyebrow">YOUR SAVED PLACES</p>
+                        <h1>Favorite destinations</h1>
+                        <p>Keep the places you love close while planning your next trip.</p>
+                    </div>
+                    <a class="favorites-browse-link" href="destinations.html">Explore destinations</a>
+                </div>
+
+                <p class="favorites-error" id="favoritesError" role="alert" hidden></p>
+                <p class="favorites-status" id="favoritesStatus" role="status" aria-live="polite"></p>
+
+                <div id="favoritesData" hidden>
+                    <section class="destination-container" id="favoritesContainer"
+                        aria-label="Favorite destinations"></section>
+                    <section class="favorites-empty" id="favoritesEmpty" hidden>
+                        <div class="empty-icon" aria-hidden="true">♡</div>
+                        <h3>No favorites saved yet</h3>
+                        <p>Browse destinations and tap the heart to save a place for later.</p>
+                        <a class="primary-btn" href="destinations.html">Browse destinations</a>
+                    </section>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <dialog id="customAlertModal" class="custom-alert-modal">
+        <div class="custom-alert-content">
+            <p id="customAlertText">Message</p>
+            <button type="button" class="primary-btn" id="closeCustomAlert">OK</button>
+        </div>
+    </dialog>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/favorites.js"></script>
+</body>
+</html>

@@ -22,7 +22,7 @@
 
                 <p class="nav-heading">PERSONAL</p>
                 <a href="budget.html" class="nav-link">₹ Budget Planner</a>
-                <a href="#" class="nav-link">♡ Favorites</a>
+                <a href="favorites.html" class="nav-link">♡ Favorites</a>
             </nav>
 
             <div class="sidebar-bottom">
@@ -76,10 +76,11 @@
                         <option value="nature">Nature</option>
                     </select>
                 </section>
+                <p class="favorite-status" id="favoriteStatus" role="status" aria-live="polite"></p>
 
                 <section class="destination-container" id="destinationContainer"
                     aria-label="Available destinations">
-                    <article class="destination-card" data-category="mountains">
+                    <article class="destination-card" data-destination-id="manali" data-category="mountains">
                         <img src="https://images.unsplash.com/photo-1472396961693-142e6e269027?w=600" alt="Mountain landscape in Manali">
                         <div class="destination-info">
                             <span class="destination-category">Mountains</span>
@@ -88,7 +89,7 @@
                         </div>
                     </article>
 
-                    <article class="destination-card" data-category="beaches">
+                    <article class="destination-card" data-destination-id="goa" data-category="beaches">
                         <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600" alt="Beach in Goa">
                         <div class="destination-info">
                             <span class="destination-category">Beaches</span>
@@ -97,7 +98,7 @@
                         </div>
                     </article>
 
-                    <article class="destination-card" data-category="mountains">
+                    <article class="destination-card" data-destination-id="shimla" data-category="mountains">
                         <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?w=600" alt="Mountain scenery near Shimla">
                         <div class="destination-info">
                             <span class="destination-category">Mountains</span>
@@ -106,7 +107,7 @@
                         </div>
                     </article>
 
-                    <article class="destination-card" data-category="cities">
+                    <article class="destination-card" data-destination-id="mumbai" data-category="cities">
                         <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=600" alt="City skyline in Mumbai">
                         <div class="destination-info">
                             <span class="destination-category">Cities</span>
@@ -115,7 +116,7 @@
                         </div>
                     </article>
 
-                    <article class="destination-card" data-category="nature">
+                    <article class="destination-card" data-destination-id="munnar" data-category="nature">
                         <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600" alt="Green forest near Munnar">
                         <div class="destination-info">
                             <span class="destination-category">Nature</span>
@@ -124,7 +125,7 @@
                         </div>
                     </article>
 
-                    <article class="destination-card" data-category="beaches">
+                    <article class="destination-card" data-destination-id="andaman" data-category="beaches">
                         <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600" alt="Tropical beach in the Andaman Islands">
                         <div class="destination-info">
                             <span class="destination-category">Beaches</span>

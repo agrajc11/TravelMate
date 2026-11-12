@@ -54,11 +54,53 @@
 }
 
 .destination-card {
+    position: relative;
     overflow: hidden;
     border: 1px solid #e8eeeb;
     border-radius: 13px;
     background: white;
     transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.favorite-toggle {
+    position: absolute;
+    z-index: 1;
+    top: 12px;
+    right: 12px;
+    display: grid;
+    width: 40px;
+    height: 40px;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.94);
+    color: #788780;
+    font-size: 23px;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(20, 60, 45, 0.14);
+}
+
+.favorite-toggle:hover,
+.favorite-toggle[aria-pressed="true"] {
+    color: #c34b62;
+}
+
+.favorite-toggle:focus-visible {
+    outline: 3px solid #61d6b0;
+    outline-offset: 2px;
+}
+
+.favorite-toggle:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.favorite-status {
+    min-height: 18px;
+    margin: -12px 0 14px;
+    color: #176b5b;
+    font-size: 13px;
 }
 
 .destination-card:hover {

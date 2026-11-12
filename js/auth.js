@@ -231,6 +231,43 @@ function saveCurrentUserExpenses(expenses) {
     localStorage.setItem("travelMateExpensesByUser", JSON.stringify(expensesByUser));
 }
 
+function loadCurrentUserFavorites() {
+    const session = window.travelMateSession;
+    if (!session) throw new Error("A signed-in session is required to load favorites.");
+
+    const favoritesByUser = readStoredJson("travelMateFavoritesByUser", {});
+    if (!isStorageMap(favoritesByUser)) {
+        throw new Error("Saved user favorite data has an unexpected format.");
+    }
+
+    const favorites = favoritesByUser[String(session.userId)] || [];
+    if (!Array.isArray(favorites) || favorites.some(function (favorite) {
+        return !isStorageMap(favorite) || typeof favorite.id !== "string";
+    })) {
+        throw new Error("Saved favorites for this account have an unexpected format.");
+    }
+
+    return favorites;
+}
+
+function saveCurrentUserFavorites(favorites) {
+    const session = window.travelMateSession;
+    if (!session) throw new Error("A signed-in session is required to save favorites.");
+    if (!Array.isArray(favorites) || favorites.some(function (favorite) {
+        return !isStorageMap(favorite) || typeof favorite.id !== "string";
+    })) {
+        throw new Error("Favorites must be saved as a list of destination records.");
+    }
+
+    const favoritesByUser = readStoredJson("travelMateFavoritesByUser", {});
+    if (!isStorageMap(favoritesByUser)) {
+        throw new Error("Saved user favorite data has an unexpected format.");
+    }
+
+    favoritesByUser[String(session.userId)] = favorites;
+    localStorage.setItem("travelMateFavoritesByUser", JSON.stringify(favoritesByUser));
+}
+
 function updateUserAvatar(session) {
     const avatar = document.getElementById("profileAvatar");
     if (!avatar || !session) return;
