@@ -91,6 +91,7 @@ confirmModal.addEventListener("click", function(event) {
 tripForm.addEventListener("submit", function(event) {
     event.preventDefault();
 
+    const isNewTrip = editingTripId === null;
     const trip = {
         id: editingTripId || Date.now(),
         name: document.getElementById("tripName").value.trim(),
@@ -120,6 +121,10 @@ tripForm.addEventListener("submit", function(event) {
     }
 
     saveTrips();
+    if (isNewTrip) {
+        document.getElementById("tripSearch").value = "";
+        document.getElementById("tripFilter").value = "all";
+    }
     renderTrips();
     closeTripModal();
 });
@@ -168,8 +173,8 @@ function renderTrips() {
 
     const filteredTrips = trips.filter(trip => {
         const matchesSearch =
-            trip.name.toLowerCase().includes(searchText) ||
-            trip.destination.toLowerCase().includes(searchText);
+            String(trip.name || "").toLowerCase().includes(searchText) ||
+            String(trip.destination || "").toLowerCase().includes(searchText);
 
         const status = getTripStatus(trip).toLowerCase();
         const matchesFilter = filter === "all" || status === filter;
@@ -187,23 +192,24 @@ function renderTrips() {
         card.className = "trip-card";
 
         const title = document.createElement("h3");
-        title.textContent = trip.name;
+        title.textContent = trip.name || "Untitled trip";
 
         const destination = document.createElement("p");
         destination.className = "trip-destination";
-        destination.textContent = "📍 " + trip.destination;
+        destination.textContent = "📍 " + (trip.destination || "Destination not set");
 
         const dates = document.createElement("p");
         dates.className = "trip-detail";
-        dates.textContent = "📅 " + trip.startDate + " to " + trip.endDate;
+        dates.textContent = "📅 " + (trip.startDate || "Start date not set") +
+            " to " + (trip.endDate || "End date not set");
 
         const travelers = document.createElement("p");
         travelers.className = "trip-detail";
-        travelers.textContent = "👥 " + trip.travelers + " traveler(s)";
+        travelers.textContent = "👥 " + (Number(trip.travelers) || 1) + " traveler(s)";
 
         const budget = document.createElement("p");
         budget.className = "trip-detail";
-        budget.textContent = "₹ " + trip.budget.toLocaleString("en-IN");
+        budget.textContent = "₹ " + (Number(trip.budget) || 0).toLocaleString("en-IN");
 
         const status = document.createElement("span");
         status.className = "trip-status";
@@ -213,12 +219,22 @@ function renderTrips() {
         actions.className = "trip-actions";
 
         const editButton = document.createElement("button");
-        editButton.textContent = "Edit";
+        const editIcon = document.createElement("span");
+        editIcon.className = "trip-action-icon";
+        editIcon.setAttribute("aria-hidden", "true");
+        editIcon.textContent = "✎";
+        editButton.append(editIcon, document.createTextNode("Edit"));
+        editButton.setAttribute("aria-label", "Edit trip");
         editButton.addEventListener("click", () => editTrip(trip.id));
 
         const deleteButton = document.createElement("button");
-        deleteButton.textContent = "Delete";
+        const deleteIcon = document.createElement("span");
+        deleteIcon.className = "trip-action-icon";
+        deleteIcon.setAttribute("aria-hidden", "true");
+        deleteIcon.textContent = "🗑";
+        deleteButton.append(deleteIcon, document.createTextNode("Delete"));
         deleteButton.className = "delete-btn";
+        deleteButton.setAttribute("aria-label", "Delete trip");
         deleteButton.addEventListener("click", () => deleteTrip(trip.id));
 
         actions.append(editButton, deleteButton);

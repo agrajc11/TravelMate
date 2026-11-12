@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Planner | TravelMate</title>
+    <link rel="stylesheet" href="css/trips.css">
+    <link rel="stylesheet" href="css/budget.css">
+</head>
+<body data-requires-auth="true">
+    <div class="dashboard">
+        <aside class="sidebar" id="sidebar">
+            <div class="brand">TravelMate<span>.</span></div>
+            <nav class="sidebar-nav">
+                <p class="nav-heading">MENU</p>
+                <a href="index.html" class="nav-link">⌂ Dashboard</a>
+                <a href="destinations.html" class="nav-link">⌖ Destinations</a>
+                <a href="trips.html" class="nav-link">✈ My Trips</a>
+                <a href="itinerary.html" class="nav-link">▤ Itinerary</a>
+                <p class="nav-heading">PERSONAL</p>
+                <a href="budget.html" class="nav-link active">₹ Budget Planner</a>
+                <a href="#" class="nav-link">♡ Favorites</a>
+            </nav>
+            <div class="sidebar-bottom">
+                <p>Plan your next adventure!</p>
+                <span>TravelMate © 2026</span>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <button class="menu-toggle" id="menuToggle"
+                    aria-label="Toggle sidebar" aria-controls="sidebar"
+                    aria-expanded="false">☰</button>
+                <div>
+                    <p class="topbar-label">TRAVEL PLANNER</p>
+                    <h2>Budget Planner</h2>
+                </div>
+                <div class="profile-group">
+                    <button type="button" class="profile-avatar" id="profileAvatar"
+                        aria-haspopup="menu" aria-controls="profileMenu"
+                        aria-expanded="false" aria-label="Open profile menu" hidden></button>
+                    <div class="profile-menu" id="profileMenu" role="menu" hidden>
+                        <button type="button" class="profile-menu-item" id="logoutButton"
+                            role="menuitem">Logout</button>
+                    </div>
+                </div>
+            </header>
+
+            <section class="page-content">
+                <div class="welcome-section">
+                    <div>
+                        <h1>Plan your travel budget</h1>
+                        <p>Track expenses for each trip and see how they compare with your estimated budget.</p>
+                    </div>
+                </div>
+
+                <p class="budget-error" id="budgetError" role="alert" hidden></p>
+
+                <div id="budgetData" hidden>
+                    <section class="summary-grid budget-summary" aria-label="Budget summary">
+                        <article class="summary-card">
+                            <span>Total Trip Budgets</span>
+                            <h2 id="totalBudget">₹0</h2>
+                        </article>
+                        <article class="summary-card">
+                            <span>Planned Expenses</span>
+                            <h2 id="totalExpenses">₹0</h2>
+                        </article>
+                        <article class="summary-card">
+                            <span>Budget Remaining</span>
+                            <h2 id="totalRemaining">₹0</h2>
+                        </article>
+                    </section>
+
+                    <section class="budget-trip-list" id="budgetTripList"
+                        aria-label="Trip budgets"></section>
+
+                    <section class="budget-empty" id="budgetEmpty" hidden>
+                        <div class="empty-icon" aria-hidden="true">₹</div>
+                        <h3>No trips to budget yet</h3>
+                        <p>Create a trip first, then add and track its planned expenses here.</p>
+                        <a class="primary-btn" href="trips.html">Go to My Trips</a>
+                    </section>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <dialog id="expenseModal" class="trip-modal budget-modal">
+        <div class="modal-header">
+            <div>
+                <p class="topbar-label">TRIP BUDGET</p>
+                <h2>Add an Expense</h2>
+            </div>
+            <button type="button" class="close-btn" id="closeExpenseModal"
+                aria-label="Close dialog">×</button>
+        </div>
+
+        <form id="expenseForm">
+            <label for="expenseTrip">Trip</label>
+            <select id="expenseTrip" required></select>
+
+            <label for="expenseName">Expense name</label>
+            <input type="text" id="expenseName" placeholder="e.g. Hotel booking" required>
+
+            <div class="form-row">
+                <div>
+                    <label for="expenseCategory">Category</label>
+                    <select id="expenseCategory" required>
+                        <option value="Accommodation">Accommodation</option>
+                        <option value="Transport">Transport</option>
+                        <option value="Food">Food</option>
+                        <option value="Activities">Activities</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="expenseAmount">Amount (₹)</label>
+                    <input type="number" id="expenseAmount" min="0.01"
+                        step="0.01" placeholder="e.g. 2500" required>
+                </div>
+            </div>
+
+            <label for="expenseDate">Date</label>
+            <input type="date" id="expenseDate" required>
+
+            <div class="modal-actions">
+                <button type="button" class="secondary-btn" id="cancelExpense">Cancel</button>
+                <button type="submit" class="primary-btn">Save Expense</button>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog id="confirmExpenseModal" class="confirm-modal">
+        <div class="modal-header">
+            <div>
+                <p class="topbar-label">CONFIRM ACTION</p>
+                <h2>Delete Expense</h2>
+            </div>
+            <button type="button" class="close-btn" id="closeExpenseConfirm"
+                aria-label="Close dialog">×</button>
+        </div>
+        <p>Are you sure you want to delete this expense?</p>
+        <div class="modal-actions">
+            <button type="button" class="secondary-btn" id="cancelExpenseDelete">Cancel</button>
+            <button type="button" class="primary-btn" id="confirmExpenseDelete">Delete</button>
+        </div>
+    </dialog>
+
+    <dialog id="customAlertModal" class="custom-alert-modal">
+        <div class="custom-alert-content">
+            <p id="customAlertText">Message</p>
+            <button type="button" class="primary-btn" id="closeCustomAlert">OK</button>
+        </div>
+    </dialog>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/budget.js"></script>
+</body>
+</html>

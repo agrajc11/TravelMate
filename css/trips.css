@@ -340,16 +340,44 @@ button, input, select, textarea {
 }
 
 .trip-actions button {
-    background: none;
-    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border: 1px solid #cfe5dc;
+    border-radius: 7px;
+    background: #e8f4ef;
     color: #176b5b;
     cursor: pointer;
     font-weight: bold;
     font-size: 13px;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.trip-actions button:hover {
+    border-color: #b6d9cc;
+    background: #dcefe8;
+}
+
+.trip-actions button:focus-visible {
+    outline: 3px solid #61d6b0;
+    outline-offset: 2px;
+}
+
+.trip-action-icon {
+    font-size: 16px;
+    line-height: 1;
 }
 
 .trip-actions .delete-btn {
+    border-color: #f0d1d1;
+    background: #fff5f5;
     color: #c34b4b;
+}
+
+.trip-actions .delete-btn:hover {
+    border-color: #e8bcbc;
+    background: #fdeaea;
 }
 
 /* Empty state */

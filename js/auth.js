@@ -186,6 +186,51 @@ function saveCurrentUserItineraries(itineraries) {
     localStorage.setItem("travelMateItinerariesByUser", JSON.stringify(itinerariesByUser));
 }
 
+function loadCurrentUserExpenses() {
+    const session = window.travelMateSession;
+    if (!session) throw new Error("A signed-in session is required to load expenses.");
+
+    const expensesByUser = readStoredJson("travelMateExpensesByUser", {});
+    if (!isStorageMap(expensesByUser)) {
+        throw new Error("Saved user expense data has an unexpected format.");
+    }
+
+    const expenses = expensesByUser[String(session.userId)] || {};
+    if (!isStorageMap(expenses)) {
+        throw new Error("Saved expenses for this account have an unexpected format.");
+    }
+
+    Object.keys(expenses).forEach(function (tripId) {
+        if (!Array.isArray(expenses[tripId])) {
+            throw new Error("Saved trip expenses have an unexpected format.");
+        }
+    });
+
+    return expenses;
+}
+
+function saveCurrentUserExpenses(expenses) {
+    const session = window.travelMateSession;
+    if (!session) throw new Error("A signed-in session is required to save expenses.");
+    if (!isStorageMap(expenses)) {
+        throw new Error("Expenses must be saved by trip.");
+    }
+
+    Object.keys(expenses).forEach(function (tripId) {
+        if (!Array.isArray(expenses[tripId])) {
+            throw new Error("Trip expenses must be saved as a list.");
+        }
+    });
+
+    const expensesByUser = readStoredJson("travelMateExpensesByUser", {});
+    if (!isStorageMap(expensesByUser)) {
+        throw new Error("Saved user expense data has an unexpected format.");
+    }
+
+    expensesByUser[String(session.userId)] = expenses;
+    localStorage.setItem("travelMateExpensesByUser", JSON.stringify(expensesByUser));
+}
+
 function updateUserAvatar(session) {
     const avatar = document.getElementById("profileAvatar");
     if (!avatar || !session) return;
