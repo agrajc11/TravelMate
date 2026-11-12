@@ -318,14 +318,26 @@ function renderActivities() {
         actions.className = "activity-actions";
 
         const editButton = document.createElement("button");
-        editButton.textContent = "Edit";
+        editButton.type = "button";
+        const editIcon = document.createElement("span");
+        editIcon.className = "activity-action-icon";
+        editIcon.setAttribute("aria-hidden", "true");
+        editIcon.textContent = "✎";
+        editButton.append(editIcon, document.createTextNode("Edit"));
+        editButton.setAttribute("aria-label", "Edit activity");
         editButton.addEventListener("click", () =>
             editActivity(activity.id)
         );
 
         const deleteButton = document.createElement("button");
-        deleteButton.textContent = "Delete";
+        deleteButton.type = "button";
+        const deleteIcon = document.createElement("span");
+        deleteIcon.className = "activity-action-icon";
+        deleteIcon.setAttribute("aria-hidden", "true");
+        deleteIcon.textContent = "🗑";
+        deleteButton.append(deleteIcon, document.createTextNode("Delete"));
         deleteButton.className = "delete-btn";
+        deleteButton.setAttribute("aria-label", "Delete activity");
         deleteButton.addEventListener("click", () =>
             deleteActivity(activity.id)
         );
