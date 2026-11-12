@@ -209,6 +209,41 @@ button, input, select, textarea {
     font-size: 14px;
 }
 
+.itinerary-page-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.itinerary-page-actions button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.itinerary-print-header {
+    margin-bottom: 20px;
+    padding: 18px 20px;
+    border: 1px solid #e8eeeb;
+    border-radius: 12px;
+    background: white;
+}
+
+.itinerary-print-header h1 {
+    margin-bottom: 6px;
+    color: #25332f;
+    font-size: 22px;
+}
+
+.itinerary-print-header p {
+    color: #788780;
+    font-size: 13px;
+}
+
+.itinerary-print-header[hidden] {
+    display: none;
+}
+
 /* Buttons */
 .primary-btn {
     background: #176b5b;
@@ -546,8 +581,75 @@ button, input, select, textarea {
         flex-direction: column;
     }
 
+    .itinerary-page-actions {
+        width: 100%;
+    }
+
+    .itinerary-page-actions button {
+        flex: 1 1 auto;
+    }
+
     .activity-toolbar {
         flex-direction: column;
+    }
+}
+
+@media print {
+    @page {
+        margin: 14mm;
+    }
+
+    body {
+        background: white;
+        color: #111;
+    }
+
+    .sidebar,
+    .topbar,
+    .welcome-section,
+    .trip-selector,
+    .activity-toolbar,
+    .activity-actions,
+    dialog,
+    .menu-toggle {
+        display: none !important;
+    }
+
+    .dashboard,
+    .main-content {
+        display: block;
+        width: 100%;
+        min-height: 0;
+    }
+
+    .page-content {
+        max-width: none;
+        padding: 0;
+    }
+
+    .itinerary-print-header {
+        margin-bottom: 18px;
+        padding: 0;
+        border: 0;
+    }
+
+    .itinerary-print-header[hidden] {
+        display: none !important;
+    }
+
+    .activity-grid {
+        display: block;
+    }
+
+    .activity-card {
+        break-inside: avoid;
+        margin-bottom: 10px;
+        border-color: #ccc;
+        box-shadow: none !important;
+    }
+
+    .activity-card:hover {
+        transform: none;
     }
 
     .form-row {

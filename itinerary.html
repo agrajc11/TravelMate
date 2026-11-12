@@ -63,9 +63,17 @@
                     <p>Organize what you want to do during your trip.</p>
                 </div>
 
-                <button class="primary-btn" id="openActivityModal">
-                    + Add Activity
-                </button>
+                <div class="itinerary-page-actions">
+                    <button type="button" class="secondary-btn" id="printItineraryButton" disabled>
+                        Print Itinerary
+                    </button>
+                    <button type="button" class="secondary-btn" id="shareItineraryButton" disabled>
+                        Share Itinerary
+                    </button>
+                    <button type="button" class="primary-btn" id="openActivityModal">
+                        + Add Activity
+                    </button>
+                </div>
             </div>
 
             <!-- Select trip -->
@@ -75,6 +83,11 @@
                     <option value="">Select a saved trip</option>
                 </select>
             </div>
+
+            <section class="itinerary-print-header" id="itineraryPrintHeader" hidden>
+                <h1 id="printTripName"></h1>
+                <p id="printTripDetails"></p>
+            </section>
 
             <!-- Activity summary -->
             <div class="activity-summary">

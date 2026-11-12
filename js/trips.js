@@ -59,6 +59,9 @@ function closeTripModal() {
 }
 
 document.getElementById("openTripModal").addEventListener("click", openTripModal);
+document.getElementById("printTripsButton").addEventListener("click", function () {
+    window.print();
+});
 document.getElementById("emptyAddButton").addEventListener("click", openTripModal);
 document.getElementById("closeTripModal").addEventListener("click", closeTripModal);
 document.getElementById("cancelTrip").addEventListener("click", closeTripModal);

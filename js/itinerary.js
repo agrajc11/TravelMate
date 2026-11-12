@@ -9,6 +9,8 @@ const activityList = document.getElementById("activityList");
 const confirmModal = document.getElementById("confirmModal");
 const confirmMessage = document.getElementById("confirmMessage");
 const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+const shareItineraryButton = document.getElementById("shareItineraryButton");
+const printItineraryButton = document.getElementById("printItineraryButton");
 
 let trips = loadCurrentUserTrips();
 let itineraries = loadCurrentUserItineraries();
@@ -243,6 +245,19 @@ function deleteActivity(id) {
 
 // Display activity cards
 function renderActivities() {
+    const selectedTrip = trips.find(trip => String(trip.id) === tripSelect.value);
+    const printHeader = document.getElementById("itineraryPrintHeader");
+    printHeader.hidden = !selectedTrip;
+    shareItineraryButton.disabled = !selectedTrip;
+    printItineraryButton.disabled = !selectedTrip;
+
+    if (selectedTrip) {
+        document.getElementById("printTripName").textContent = selectedTrip.name;
+        document.getElementById("printTripDetails").textContent =
+            selectedTrip.destination + " · " + selectedTrip.startDate +
+            " to " + selectedTrip.endDate;
+    }
+
     const searchText = document
         .getElementById("activitySearch")
         .value.toLowerCase();
@@ -335,6 +350,87 @@ document.getElementById("activitySearch")
 
 document.getElementById("activityDateFilter")
     .addEventListener("change", renderActivities);
+
+printItineraryButton.addEventListener("click", function () {
+    if (!tripSelect.value) return;
+
+    document.getElementById("activitySearch").value = "";
+    document.getElementById("activityDateFilter").value = "";
+    renderActivities();
+    window.print();
+});
+
+async function copyItinerary(text) {
+    if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+        await navigator.clipboard.writeText(text);
+        return;
+    }
+
+    const temporaryInput = document.createElement("textarea");
+    temporaryInput.value = text;
+    temporaryInput.setAttribute("readonly", "");
+    temporaryInput.style.position = "fixed";
+    temporaryInput.style.opacity = "0";
+    document.body.appendChild(temporaryInput);
+    temporaryInput.select();
+    let copied = false;
+    try {
+        copied = document.execCommand("copy");
+    } finally {
+        temporaryInput.remove();
+    }
+
+    if (!copied) {
+        throw new Error("Clipboard access is unavailable.");
+    }
+}
+
+shareItineraryButton.addEventListener("click", async function () {
+    const selectedTrip = trips.find(trip => String(trip.id) === tripSelect.value);
+    if (!selectedTrip) return;
+
+    const activities = getActivities().slice().sort((first, second) =>
+        (first.date + first.time).localeCompare(second.date + second.time)
+    );
+    const lines = [
+        "TravelMate Itinerary: " + selectedTrip.name,
+        "Destination: " + selectedTrip.destination,
+        "Dates: " + selectedTrip.startDate + " to " + selectedTrip.endDate,
+        "",
+        "Activities:"
+    ];
+
+    if (activities.length === 0) {
+        lines.push("No activities planned yet.");
+    } else {
+        activities.forEach(function (activity) {
+            lines.push(
+                "- " + activity.date + " " + activity.time +
+                " — " + activity.name + " (" + activity.location + ")"
+            );
+        });
+    }
+
+    const shareText = lines.join("\n");
+    if (typeof navigator.share === "function") {
+        try {
+            await navigator.share({
+                title: "TravelMate Itinerary: " + selectedTrip.name,
+                text: shareText
+            });
+            return;
+        } catch (error) {
+            if (error.name === "AbortError") return;
+        }
+    }
+
+    try {
+        await copyItinerary(shareText);
+        showCustomAlert("Itinerary copied. You can now paste it into a message.");
+    } catch (error) {
+        showCustomAlert("Could not share the itinerary. Please try copying it again.");
+    }
+});
 
 // Mobile sidebar
 document.getElementById("menuToggle")

@@ -12,14 +12,33 @@ const favoritesData = document.getElementById("favoritesData");
 const favoritesError = document.getElementById("favoritesError");
 const favoritesContainer = document.getElementById("favoritesContainer");
 const favoritesEmpty = document.getElementById("favoritesEmpty");
+const favoritesControls = document.getElementById("favoritesControls");
+const favoritesSearch = document.getElementById("favoritesSearch");
+const favoritesCategory = document.getElementById("favoritesCategory");
+const favoritesNoResults = document.getElementById("favoritesNoResults");
 const favoritesStatus = document.getElementById("favoritesStatus");
 
 let favorites = [];
 
 function renderFavorites() {
+    const searchValue = favoritesSearch.value.trim().toLowerCase();
+    const selectedCategory = favoritesCategory.value;
+    const visibleFavorites = favorites.filter(function (favorite) {
+        const searchableText = [
+            favorite.name || "",
+            favorite.location || "",
+            favorite.categoryLabel || ""
+        ].join(" ").toLowerCase();
+        const matchesSearch = searchableText.includes(searchValue);
+        const matchesCategory =
+            selectedCategory === "all" || favorite.category === selectedCategory;
+
+        return matchesSearch && matchesCategory;
+    });
+
     favoritesContainer.replaceChildren();
 
-    favorites.forEach(function (favorite) {
+    visibleFavorites.forEach(function (favorite) {
         const card = document.createElement("article");
         card.className = "destination-card";
         card.dataset.category = favorite.category || "other";
@@ -72,7 +91,13 @@ function renderFavorites() {
     });
 
     favoritesEmpty.hidden = favorites.length > 0;
+    favoritesControls.hidden = favorites.length === 0;
+    favoritesNoResults.hidden =
+        favorites.length === 0 || visibleFavorites.length > 0;
 }
+
+favoritesSearch.addEventListener("input", renderFavorites);
+favoritesCategory.addEventListener("change", renderFavorites);
 
 try {
     favorites = loadCurrentUserFavorites();

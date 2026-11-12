@@ -209,6 +209,13 @@ button, input, select, textarea {
     font-size: 14px;
 }
 
+.trip-page-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
 /* Buttons */
 .primary-btn {
     background: #176b5b;
@@ -559,6 +566,14 @@ button, input, select, textarea {
         flex-direction: column;
     }
 
+    .trip-page-actions {
+        width: 100%;
+    }
+
+    .trip-page-actions button {
+        flex: 1;
+    }
+
     .summary-grid {
         grid-template-columns: 1fr;
     }
@@ -570,5 +585,57 @@ button, input, select, textarea {
     .form-row {
         grid-template-columns: 1fr;
         gap: 0;
+    }
+}
+
+@media print {
+    @page {
+        margin: 14mm;
+    }
+
+    body {
+        background: white;
+        color: #111;
+    }
+
+    .sidebar,
+    .topbar,
+    .trip-toolbar,
+    .trip-page-actions,
+    .trip-actions,
+    dialog,
+    .menu-toggle {
+        display: none !important;
+    }
+
+    .dashboard,
+    .main-content {
+        display: block;
+        width: 100%;
+        min-height: 0;
+    }
+
+    .page-content {
+        max-width: none;
+        padding: 0;
+    }
+
+    .trip-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .trip-card {
+        break-inside: avoid;
+        border-color: #ccc;
+        box-shadow: none !important;
+    }
+
+    .trip-card:hover {
+        transform: none;
+    }
+
+    .empty-state .primary-btn {
+        display: none !important;
     }
 }

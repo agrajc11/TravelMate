@@ -62,8 +62,25 @@
                 <p class="favorites-status" id="favoritesStatus" role="status" aria-live="polite"></p>
 
                 <div id="favoritesData" hidden>
+                    <section class="destination-controls favorites-controls" id="favoritesControls"
+                        aria-label="Search and filter favorite destinations">
+                        <input type="search" id="favoritesSearch"
+                            placeholder="Search favorite destinations..."
+                            aria-label="Search favorite destinations">
+                        <select id="favoritesCategory" aria-label="Filter favorites by category">
+                            <option value="all">All Categories</option>
+                            <option value="mountains">Mountains</option>
+                            <option value="beaches">Beaches</option>
+                            <option value="cities">Cities</option>
+                            <option value="nature">Nature</option>
+                        </select>
+                    </section>
+
                     <section class="destination-container" id="favoritesContainer"
                         aria-label="Favorite destinations"></section>
+                    <p class="favorites-no-results" id="favoritesNoResults" role="status" hidden>
+                        No favorites match your search. Try another name, location, or category.
+                    </p>
                     <section class="favorites-empty" id="favoritesEmpty" hidden>
                         <div class="empty-icon" aria-hidden="true">♡</div>
                         <h3>No favorites saved yet</h3>

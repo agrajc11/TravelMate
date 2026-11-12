@@ -21,6 +21,16 @@
     font-size: 13px;
 }
 
+.favorites-controls {
+    margin-bottom: 22px;
+}
+
+.favorites-no-results {
+    padding: 35px 20px;
+    color: #788780;
+    text-align: center;
+}
+
 .favorites-error {
     margin-bottom: 20px;
     padding: 16px 18px;
@@ -56,6 +66,8 @@
 }
 
 .favorites-empty[hidden],
+#favoritesControls[hidden],
+#favoritesNoResults[hidden],
 #favoritesData[hidden],
 .favorites-error[hidden] {
     display: none;
